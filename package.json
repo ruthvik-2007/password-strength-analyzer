@@ -1,0 +1,17 @@
+{
+  "name": "password-strength-analyzer",
+  "version": "1.0.0",
+  "description": "Premium Password Strength Analyzer and Generator",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx -y browser-sync start --server --files \"*.html, *.css, *.js\" --port 3000"
+  },
+  "keywords": [
+    "security",
+    "password",
+    "analyzer",
+    "generator"
+  ],
+  "author": "FORTRESS Secure Lab",
+  "license": "MIT"
+}

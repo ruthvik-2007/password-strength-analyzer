@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortress - Premium Password Strength Analyzer & Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="glass-bg"></div>
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo-area">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1>FORTRESS</h1>
+                    <p class="subtitle">Cryptographic Password Sentinel</p>
+                </div>
+            </div>
+            <div class="badge-status">
+                <span class="pulse-dot"></span>
+                <span>SECURE CLIENT-SIDE</span>
+            </div>
+        </header>
+
+        <!-- Grid Layout -->
+        <main class="app-grid">
+            
+            <!-- Left Side: Analyzer & Leak Checker -->
+            <section class="grid-col main-panel">
+                <!-- Password Input Card -->
+                <div class="glass-card analyzer-card">
+                    <div class="card-header">
+                        <h2>Analyze Password</h2>
+                        <span class="entropy-badge" id="entropy-badge">0 Bits</span>
+                    </div>
+
+                    <div class="input-wrapper">
+                        <input type="password" id="password-input" placeholder="Type or paste a password..." autocomplete="off" spellcheck="false">
+                        <button class="toggle-password" id="toggle-password-btn" aria-label="Toggle password visibility">
+                            <svg class="eye-icon-show" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                            <svg class="eye-icon-hide hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                                <line x1="1" y1="1" x2="23" y2="23"></line>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Dynamic strength meter -->
+                    <div class="strength-meter-container">
+                        <div class="strength-bar-track">
+                            <div class="strength-bar-fill" id="strength-bar"></div>
+                        </div>
+                        <div class="strength-labels">
+                            <span class="strength-text" id="strength-text">Empty</span>
+                            <span class="crack-time" id="crack-time">crack time: instant</span>
+                        </div>
+                    </div>
+
+                    <!-- Visual validation checklist -->
+                    <ul class="validation-list" id="validation-list">
+                        <li class="validation-item" data-rule="length">
+                            <span class="check-icon"></span>
+                            At least 12 characters (16+ preferred)
+                        </li>
+                        <li class="validation-item" data-rule="uppercase">
+                            <span class="check-icon"></span>
+                            Uppercase letters (A-Z)
+                        </li>
+                        <li class="validation-item" data-rule="lowercase">
+                            <span class="check-icon"></span>
+                            Lowercase letters (a-z)
+                        </li>
+                        <li class="validation-item" data-rule="number">
+                            <span class="check-icon"></span>
+                            Numerical digits (0-9)
+                        </li>
+                        <li class="validation-item" data-rule="symbol">
+                            <span class="check-icon"></span>
+                            Special characters (!@#$%^&*)
+                        </li>
+                        <li class="validation-item" data-rule="breached">
+                            <span class="check-icon"></span>
+                            Not exposed in data breaches
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Privacy Leak Check Status Panel -->
+                <div class="glass-card leak-checker-card">
+                    <div class="leak-header">
+                        <div class="leak-info">
+                            <h3>$k$-Anonymity Breach Checker</h3>
+                            <p>Real-time anonymous scanning via HaveIBeenPwned API.</p>
+                        </div>
+                        <div class="leak-status-badge neutral" id="leak-badge">
+                            STATUS: WAITING
+                        </div>
+                    </div>
+                    <div class="leak-details" id="leak-details">
+                        Enter a password to initiate a privacy-preserving breach check.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Side: Generator & Enterprise DB Simulator -->
+            <section class="grid-col side-panel">
+                <!-- Smart Generator Card -->
+                <div class="glass-card generator-card">
+                    <h2>Smart Generator</h2>
+                    <p class="section-desc">Generate secure passwords or readable passphrases.</p>
+
+                    <!-- Tabs -->
+                    <div class="gen-tabs">
+                        <button class="tab-btn active" id="tab-password">Password</button>
+                        <button class="tab-btn" id="tab-passphrase">Passphrase</button>
+                    </div>
+
+                    <!-- Generator Output Display -->
+                    <div class="generator-output">
+                        <div class="generated-text" id="generated-password">Click Generate Below</div>
+                        <button class="copy-btn" id="copy-btn" title="Copy to clipboard">
+                            <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            <span class="copy-tooltip">Copied!</span>
+                        </button>
+                    </div>
+
+                    <!-- Generator Options (Password mode) -->
+                    <div class="generator-options" id="password-options">
+                        <div class="control-group">
+                            <div class="control-label">
+                                <span>Length: <strong id="length-val">16</strong></span>
+                            </div>
+                            <input type="range" id="gen-length" min="8" max="64" value="16" class="range-slider">
+                        </div>
+
+                        <div class="checkbox-grid">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="gen-upper" checked>
+                                <span class="checkmark"></span>
+                                Uppercase
+                            </label>
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="gen-lower" checked>
+                                <span class="checkmark"></span>
+                                Lowercase
+                            </label>
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="gen-numbers" checked>
+                                <span class="checkmark"></span>
+                                Numbers
+                            </label>
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="gen-symbols" checked>
+                                <span class="checkmark"></span>
+                                Symbols
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Generator Options (Passphrase mode) -->
+                    <div class="generator-options hidden" id="passphrase-options">
+                        <div class="control-group">
+                            <div class="control-label">
+                                <span>Words: <strong id="words-val">4</strong></span>
+                            </div>
+                            <input type="range" id="gen-words" min="3" max="8" value="4" class="range-slider">
+                        </div>
+                        <div class="checkbox-grid">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="gen-separator" checked>
+                                <span class="checkmark"></span>
+                                Dash Separated
+                            </label>
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="gen-capitalize" checked>
+                                <span class="checkmark"></span>
+                                Capitalize Words
+                            </label>
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="gen-append-number">
+                                <span class="checkmark"></span>
+                                Append Number
+                            </label>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" id="generate-btn">
+                        Generate Secure Secret
+                    </button>
+                </div>
+
+                <!-- Database Reuse Prevention Simulator -->
+                <div class="glass-card db-card">
+                    <div class="db-header">
+                        <h2>Enterprise DB Simulator</h2>
+                        <span class="db-count" id="db-history-count">0 Stored</span>
+                    </div>
+                    <p class="section-desc">Simulates server-side policies restricting reuse of previous passwords.</p>
+
+                    <!-- Save Form -->
+                    <div class="db-action">
+                        <button class="btn btn-outline" id="save-password-btn">
+                            Save Password to Database History
+                        </button>
+                    </div>
+
+                    <!-- DB Alert Banner -->
+                    <div class="db-alert hidden" id="db-alert">
+                        <!-- Filled dynamically -->
+                    </div>
+
+                    <!-- History List -->
+                    <div class="db-history">
+                        <h4>Stored Password History Hash Map</h4>
+                        <div class="history-empty" id="history-empty">
+                            No passwords stored yet. Use the button above to record passwords.
+                        </div>
+                        <ul class="history-list hidden" id="history-list">
+                            <!-- Populated in JS -->
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Designed with mathematical precision &copy; 2026 FORTRESS Secure Lab. Zero password data is ever transmitted plaintext.</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
